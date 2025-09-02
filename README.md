@@ -57,8 +57,9 @@ public class DailyBalance
 ## Endpoints (exemplos)
 
 ### Serviço de Lançamentos
-  ### Porta 5000
-
+  ```
+   > Porta 5000
+  ```
 - `POST /api/transactions` — cria um lançamento.
   - Body: `{ "occurredAt": "2025-08-30", "amount": 150.00, "type": "Credito", "description": "Venda A" }`
   - Resposta: `201 Created` com recurso criado.
@@ -68,7 +69,9 @@ public class DailyBalance
 - `GET /api/transactions` — lista de todos os lançamentos
 
 ### Serviço de Consolidado
-   ### Porta 5005
+  ```
+   > Porta 5005
+  ```
 
 - `GET /api/daily/{yyyy-MM-dd}` — retorna `DailyBalance` do dia.
 - `POST /api/daily/{yyyy-MM-dd}/recompute` — força recomputo do consolidado (útil em correções).
