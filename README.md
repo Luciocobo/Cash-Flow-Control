@@ -202,11 +202,11 @@ public class TransactionsController : ControllerBase
 
 - Unit tests cobrindo serviços e validações (xUnit + Moq).
 - Integration tests usando `WebApplicationFactory<TEntryPoint>` (Microsoft.AspNetCore.Mvc.Testing) com um banco em memória (SQLite in-memory) para verificar fluxo de criação e publicação de evento.
-- Testes de carga recomendados: `k6` ou `wrk` para validar 50 req/s com perda ≤5%.
+
 
 ---
 
-# 📊 Load Test com NBomber 6 (Teste de Carga)
+## 📊 Load Test com NBomber 6 (Teste de Carga)
 
 Este projeto utiliza o [NBomber v6](https://nbomber.com/) para realizar **testes de carga** no serviço `DailySummaryService`.
 
