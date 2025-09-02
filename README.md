@@ -29,6 +29,8 @@ Project to control releases (debits/credits) and provide daily consolidation of 
 
 ---
 
+![Desenho arquitetura AWS](docs-arquiterure/High-availability-architecture-AWS.jpg)
+
 ## Modelo de Dados (simplificado)
 
 ```csharp

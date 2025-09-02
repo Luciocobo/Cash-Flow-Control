@@ -1,0 +1,200 @@
+type: collection.insomnia.rest/5.0
+name: TransactionsService
+meta:
+  id: wrk_3020983372424db3be0a356c50617c4c
+  created: 1756594679865
+  modified: 1756594679865
+  description: ""
+collection:
+  - url: http://localhost:5000/api/transactions/
+    name: Create
+    meta:
+      id: req_04a991eb30254fa4b484340de2afd523
+      created: 1756595049184
+      modified: 1756667469954
+      isPrivate: false
+      description: ""
+      sortKey: -1756595049184
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+          "OccurredAt": "2025-09-01",
+          "Amount": "350.50",
+          "Type": "Cedito",
+          "Description": "Venda produto C"
+        }
+    headers:
+      - name: Content-Type
+        value: application/json
+      - name: User-Agent
+        value: insomnia/11.5.0
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: http://localhost:5000/api/transactions
+    name: GetAll
+    meta:
+      id: req_608770a15de4455b87079cf5cf9020f6
+      created: 1756598786810
+      modified: 1756815591123
+      isPrivate: false
+      description: ""
+      sortKey: -1756598786810
+    method: GET
+    headers:
+      - name: User-Agent
+        value: insomnia/11.5.0
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: http://localhost:5000/api/transactions/by-date?date=2025-09-01
+    name: GetbyDate
+    meta:
+      id: req_fa94094a3b92488aa46cd7b5b2ee48e1
+      created: 1756662749299
+      modified: 1756667484667
+      isPrivate: false
+      description: ""
+      sortKey: -1756662749299
+    method: GET
+    headers:
+      - name: User-Agent
+        value: insomnia/11.5.0
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: http://localhost:5000/api/transactions/421935a0-acdf-43cc-a0e9-8e29b901d28e
+    name: GetById
+    meta:
+      id: req_d26b39b700694961b44dd38e69bd559d
+      created: 1756667389543
+      modified: 1756667432136
+      isPrivate: false
+      description: ""
+      sortKey: -1756667389543
+    method: GET
+    headers:
+      - name: User-Agent
+        value: insomnia/11.5.0
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: http://localhost:5005/api/daily/2025-08-31
+    name: Getdaily
+    meta:
+      id: req_523e01c0b078442dba33e28b8b471d10
+      created: 1756815661394
+      modified: 1756820310324
+      isPrivate: false
+      description: ""
+      sortKey: -1756630768054.5
+    method: GET
+    headers:
+      - name: User-Agent
+        value: insomnia/11.5.0
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: http://localhost:5005/api/daily/2025-08-31/recompute
+    name: PostRecompute
+    meta:
+      id: req_ae4b3cb2b1aa486786f4c3c8098472af
+      created: 1756819311323
+      modified: 1756820318975
+      isPrivate: false
+      description: ""
+      sortKey: -1756614777432.25
+    method: POST
+    body:
+      mimeType: application/json
+      text: " [{
+
+        \t \"Amount\": 250.00,\ 
+
+        \t \"Type\": \"Credito\"
+
+        \ },
+
+        \ {
+
+        \t \"Amount\": 453.00,\ 
+
+        \t \"Type\": \"Credito\"
+
+        \ }]
+
+        \t"
+    headers:
+      - name: Content-Type
+        value: application/json
+      - name: User-Agent
+        value: insomnia/11.5.0
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: http://localhost:5005/health
+    name: Gethealth
+    meta:
+      id: req_c9879c1e06fe42528b8e507bc5d56cad
+      created: 1756820832270
+      modified: 1756821084039
+      isPrivate: false
+      description: ""
+      sortKey: -1756622772743.375
+    method: GET
+    headers:
+      - name: User-Agent
+        value: insomnia/11.5.0
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+cookieJar:
+  name: Default Jar
+  meta:
+    id: jar_734cb6fceb76e1b2e9d74f1b8499024d352d6652
+    created: 1756594679873
+    modified: 1756594679873
+environments:
+  name: Base Environment
+  meta:
+    id: env_734cb6fceb76e1b2e9d74f1b8499024d352d6652
+    created: 1756594679869
+    modified: 1756594679869
+    isPrivate: false
