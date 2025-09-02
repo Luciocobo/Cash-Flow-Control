@@ -21,7 +21,6 @@ Project to control releases (debits/credits) and provide daily consolidation of 
 ---
 
 ## Arquitetura (resumo)
-
 - API REST do Serviço de Lançamentos expõe endpoints para CRUD de lançamentos.
 - Serviço de Consolidado consome eventos e atualiza a tabela `DailyBalance` (ou recalcula sob demanda).
 - Caso o consolidado fique offline, as mensagens ficam no broker (durability) e serão processadas quando voltar.
@@ -205,4 +204,113 @@ public class TransactionsController : ControllerBase
 - Integration tests usando `WebApplicationFactory<TEntryPoint>` (Microsoft.AspNetCore.Mvc.Testing) com um banco em memória (SQLite in-memory) para verificar fluxo de criação e publicação de evento.
 - Testes de carga recomendados: `k6` ou `wrk` para validar 50 req/s com perda ≤5%.
 
+---
+
+# 📊 Load Test com NBomber 6 (Teste de Carga)
+
+Este projeto utiliza o [NBomber v6](https://nbomber.com/) para realizar **testes de carga** no serviço `DailySummaryService`.
+
+---
+
+## 🚀 Como rodar
+
+### 1. Instalar o pacote
+No diretório do projeto de testes, execute:
+
+```bash
+dotnet add package NBomber --version 6.*
+```
+
+### 2. Estrutura do teste
+Exemplo de `Program.cs` já configurado:
+
+```csharp
+using NBomber.CSharp;
+using System.Net.Http;
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        using var httpClient = new HttpClient { BaseAddress = new Uri("http://localhost:5005") };
+
+        var scenario = Scenario.Create("get_daily_balance", async context =>
+        {
+            var date = DateTime.UtcNow.Date.ToString("yyyy-MM-dd");
+            var response = await httpClient.GetAsync($"/api/daily/{date}");
+
+            return response.IsSuccessStatusCode
+                ? Response.Ok(payload: $"StatusCode: {(int)response.StatusCode}")
+                : Response.Fail(payload: $"HTTP {(int)response.StatusCode}");
+        })
+        .WithLoadSimulations(
+            Simulation.Inject(rate: 50, interval: TimeSpan.FromSeconds(1), during: TimeSpan.FromSeconds(30))
+        );
+
+        NBomberRunner
+            .RegisterScenarios(scenario)
+            .Run();
+    }
+}
+```
+
+---
+
+### 3. Executar o teste
+
+Compile e rode:
+
+```bash
+cd src/DailySummaryService.LoadTests
+dotnet run
+```
+
+---
+
+### 4. Saída dos resultados
+
+O NBomber gera relatórios automaticamente em:
+
+```
+bin/Debug/net8.0/reports/
+```
+
+Você encontrará arquivos em **JSON** e **HTML**, por exemplo:
+
+```
+bin/Debug/net8.0/reports/index.html
+```
+
+Abra esse arquivo no navegador para visualizar os gráficos.
+
+---
+
+### 5. Personalizando o cenário
+
+- Alterar a taxa de requisições (RPS):
+
+```csharp
+Simulation.Inject(rate: 100, interval: TimeSpan.FromSeconds(1), during: TimeSpan.FromMinutes(2))
+```
+
+- Alterar o endpoint alvo (`http://localhost:5005/api/daily/{date}`) para outro do seu serviço.
+
+---
+
+## ✅ Checklist
+
+1. Suba o serviço `DailySummaryService` na porta **5005**:
+   ```bash
+   dotnet run --project src/DailySummaryService --urls "http://localhost:5005"
+   ```
+
+2. Rode o **load test**:
+   ```bash
+   dotnet run --project src/DailySummaryService.LoadTests
+   ```
+
+3. Veja os relatórios em:
+   ```
+   bin/Debug/net8.0/reports/index.html
+   ```
 ---
