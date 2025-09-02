@@ -75,7 +75,7 @@ public class DailyBalance
 
 - `GET /api/daily/{yyyy-MM-dd}` — retorna `DailyBalance` do dia.
 - `POST /api/daily/{yyyy-MM-dd}/recompute` — força recomputo do consolidado (útil em correções).
-  Body: `{ [{"amount": 250.00,"type": "Credito"},{"amount": 453.00, "type": "Credito"}] }`
+  - Body: `[{"amount": 250.00,"type": "Credito"},{"amount": 453.00, "type": "Credito"}]`
 
 - `GET /health` — health-check
 
